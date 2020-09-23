@@ -63,3 +63,17 @@ library(haven)
 pulse_df = read_sas("./public_pulse_data.sas7bdat")
 ```
 # dbl is treated as numbers
+
+
+## Comparison with Base R
+
+what about `read.csv` ...? Never use it, use_
+
+```{r}
+litters_base = read.csv("FAS_litters.csv") # more difficult to look at
+litters_readr = read_csv("FAS_litters.csv")
+
+litters_base
+litters_readr
+```
+
