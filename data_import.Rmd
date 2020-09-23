@@ -19,3 +19,47 @@ litters_df = janitor::clean_names(litters_df)
 
 ## Take a look at the data
 
+Printing in the console.
+```{r}
+litters_df
+```
+
+```{r}
+tail(litters_df)
+```
+
+```{r}
+skimr::skim(litters_df)
+```
+
+
+view(litters_df) # use this more often
+
+
+## Options to read csv
+
+```{r}
+litters_df = read_csv("./FAS_litters.csv", skip = 10, col_names = F)
+```
+
+litters_df = read_csv("./FAS_litters.csv", skip = 10, col_names = F, na = c("", "NA", 999, "")) # see if there are missing values like this
+
+check out '?read_csv()' for some information.
+
+## Other file format
+
+Read in excel file.
+
+```{r}
+library(readxl) # put it in the top
+mlb_df = read_excel("./mlb11.xlsx", range = "A1:F7")
+mlb_df
+```
+
+Read in a SAS file.
+
+```{r}
+library(haven)
+pulse_df = read_sas("./public_pulse_data.sas7bdat")
+```
+# dbl is treated as numbers
