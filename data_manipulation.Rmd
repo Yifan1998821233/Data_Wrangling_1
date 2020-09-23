@@ -89,5 +89,45 @@ filter(litters_df, group == "Mod8")
 filter(litters_df, group %in% c("Mod8", "Con7")) # either mod8 or con7
 ```
 
+## 'mutate'
+
+```{r}
+mutate(litters_df, 
+       wt_gain = gd18_weight - gd0_weight,
+       group = str_to_lower(group)) # Change Con7 to con7
+```
+
+## 'arrange' not that often
+
+```{r}
+arrange(litters_df, pups_born_alive) # put something in order
+```
+
+```{r}
+arrange(litters_df, pups_born_alive, gd0_weight) # first and second in order
+```
+
+
+## '%>%'
+
+```{r}
+litters_data_raw = read_csv("./FAS_litters.csv")
+litters_clean_name = janitor::clean_names(litters_data_raw)
+litters_data_selected = select(litters_clean_name, -pups_survive)
+litters_mutated = mutate(litters_data_selected, wt_gain = gd18_weight - gd0_weight)
+litters_without_missing = drop_na(litters_mutated, gd0_weight)
+```
+
+USE THE PIPE OPERATOR INSTEAD
+
+```{r}
+litters_df = 
+  read_csv("./FAS_litters.csv") %>% 
+  janitor::clean_names() %>% 
+  select(-pups_survive) %>% 
+  mutate(wt_gain = gd18_weight - gd0_weight) %>% 
+  drop_na(gd0_weight)
+```
+
 
 
