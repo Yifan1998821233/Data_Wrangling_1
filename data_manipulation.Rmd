@@ -1,0 +1,60 @@
+---
+title: "Simple document"
+author: Yifan Su
+output: github_document
+---
+
+```{r setup}
+library(tidyverse)
+```
+
+## Load in the FAS litters Data
+
+```{r}
+litters_df = read_csv("./FAS_litters.csv")
+litters_df = janitor::clean_names(litters_df)
+```
+
+## 'select'
+
+Choose some columns and not others.
+
+```{r}
+select(litters_df, group, litter_number)
+```
+
+```{r}
+select(litters_df, group, gd0_weight:gd_of_birth)
+```
+
+```{r}
+select(litters_df, -litter_number)
+```
+
+Renaming columns...
+
+```{r}
+select(litters_df, GROUP = group, LITTer_NumBer = litter_number)
+```
+similar
+```{r}
+rename(litters_df, GROUP = group, LITTer_NumBer = litter_number)
+```
+
+Select helpers
+
+```{r}
+select(litters_df, starts_with("gd"))
+```
+
+```{r}
+select(litters_df, litter_number, everything()) # have litter_number to the first and keep everything
+```
+similar
+```{r}
+relocate(litters_df, litter_number)
+```
+
+
+
+
