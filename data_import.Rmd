@@ -12,7 +12,7 @@ library(tidyverse)
 Read in the litters dataset.
 
 ```{r}
-litters_df = read_csv("./FAS_litters.csv") # "."=starts here
+litters_df = read_csv("./data/FAS_litters.csv") # "."=starts here
 litters_df = janitor::clean_names(litters_df)
 ```
 
@@ -29,6 +29,7 @@ tail(litters_df)
 ```
 
 ```{r}
+# know the structure of df, including variables' names, summary, type.
 skimr::skim(litters_df)
 ```
 
@@ -39,12 +40,13 @@ view(litters_df) # use this more often
 ## Options to read csv
 
 ```{r}
-litters_df = read_csv("./FAS_litters.csv", skip = 10, col_names = F)
+# skip top 9 rows, and remove col_names
+litters_df = read_csv("./data/FAS_litters.csv", skip = 10, col_names = F)
 ```
 
 litters_df = read_csv("./FAS_litters.csv", skip = 10, col_names = F, na = c("", "NA", 999, "")) # see if there are missing values like this
 
-check out '?read_csv()' for some information.
+check out `?read_csv()` for some information.
 
 ## Other file format
 
@@ -52,7 +54,7 @@ Read in excel file.
 
 ```{r}
 library(readxl) # put it in the top
-mlb_df = read_excel("./mlb11.xlsx", range = "A1:F7")
+mlb_df = read_excel("./data/mlb11.xlsx", range = "A1:F7")
 mlb_df
 ```
 
@@ -60,7 +62,7 @@ Read in a SAS file.
 
 ```{r}
 library(haven)
-pulse_df = read_sas("./public_pulse_data.sas7bdat")
+pulse_df = read_sas("./data/public_pulse_data.sas7bdat")
 ```
 # dbl is treated as numbers
 
@@ -70,8 +72,8 @@ pulse_df = read_sas("./public_pulse_data.sas7bdat")
 what about `read.csv` ...? Never use it, use_
 
 ```{r}
-litters_base = read.csv("FAS_litters.csv") # more difficult to look at
-litters_readr = read_csv("FAS_litters.csv")
+litters_base = read.csv("./data/FAS_litters.csv") # more difficult to look at
+litters_readr = read_csv("./data/FAS_litters.csv")
 
 litters_base
 litters_readr
@@ -82,6 +84,7 @@ litters_readr
 Export the mlb sub-table.
 
 ```{r}
-write_csv(mlb_df, "./mlb_subtabl")
+# Export the mlb sub-table.
+write_csv(mlb_df, "./data/mlb_subtabl")
 ```
 

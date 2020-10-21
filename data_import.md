@@ -5,14 +5,14 @@ Data Import
 library(tidyverse)
 ```
 
-    ## -- Attaching packages ----------------------------------------- tidyverse 1.3.0 --
+    ## -- Attaching packages ----------------------------------------------- tidyverse 1.3.0 --
 
     ## v ggplot2 3.3.2     v purrr   0.3.4
     ## v tibble  3.0.3     v dplyr   1.0.2
     ## v tidyr   1.1.2     v stringr 1.4.0
     ## v readr   1.3.1     v forcats 0.5.0
 
-    ## -- Conflicts -------------------------------------------- tidyverse_conflicts() --
+    ## -- Conflicts -------------------------------------------------- tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -21,7 +21,7 @@ library(tidyverse)
 Read in the litters dataset.
 
 ``` r
-litters_df = read_csv("./FAS_litters.csv") # "."=starts here
+litters_df = read_csv("./data/FAS_litters.csv") # "."=starts here
 ```
 
     ## Parsed with column specification:
@@ -80,6 +80,7 @@ tail(litters_df)
     ## # ... with 2 more variables: pups_dead_birth <dbl>, pups_survive <dbl>
 
 ``` r
+# know the structure of df, including variables' names, summary, type.
 skimr::skim(litters_df)
 ```
 
@@ -120,7 +121,8 @@ view(litters\_df) \# use this more often
 ## Options to read csv
 
 ``` r
-litters_df = read_csv("./FAS_litters.csv", skip = 10, col_names = F)
+# skip top 9 rows, and remove col_names
+litters_df = read_csv("./data/FAS_litters.csv", skip = 10, col_names = F)
 ```
 
     ## Parsed with column specification:
@@ -138,7 +140,7 @@ litters_df = read_csv("./FAS_litters.csv", skip = 10, col_names = F)
 litters\_df = read\_csv(“./FAS\_litters.csv”, skip = 10, col\_names = F,
 na = c("“,”NA“, 999,”")) \# see if there are missing values like this
 
-check out ‘?read\_csv()’ for some information.
+check out `?read_csv()` for some information.
 
 ## Other file format
 
@@ -146,7 +148,7 @@ Read in excel file.
 
 ``` r
 library(readxl) # put it in the top
-mlb_df = read_excel("./mlb11.xlsx", range = "A1:F7")
+mlb_df = read_excel("./data/mlb11.xlsx", range = "A1:F7")
 mlb_df
 ```
 
@@ -164,7 +166,7 @@ Read in a SAS file.
 
 ``` r
 library(haven)
-pulse_df = read_sas("./public_pulse_data.sas7bdat")
+pulse_df = read_sas("./data/public_pulse_data.sas7bdat")
 ```
 
 # dbl is treated as numbers
@@ -174,8 +176,8 @@ pulse_df = read_sas("./public_pulse_data.sas7bdat")
 what about `read.csv` …? Never use it, use\_
 
 ``` r
-litters_base = read.csv("FAS_litters.csv") # more difficult to look at
-litters_readr = read_csv("FAS_litters.csv")
+litters_base = read.csv("./data/FAS_litters.csv") # more difficult to look at
+litters_readr = read_csv("./data/FAS_litters.csv")
 ```
 
     ## Parsed with column specification:
@@ -314,3 +316,12 @@ litters_readr
     ## 10 Con8  #3/5/2/2/95             28.5          NA              20
     ## # ... with 39 more rows, and 3 more variables: `Pups born alive` <dbl>, `Pups
     ## #   dead @ birth` <dbl>, `Pups survive` <dbl>
+
+## Exporting data
+
+Export the mlb sub-table.
+
+``` r
+# Export the mlb sub-table.
+write_csv(mlb_df, "./data/mlb_subtabl")
+```

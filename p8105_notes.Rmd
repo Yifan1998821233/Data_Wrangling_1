@@ -1,0 +1,50 @@
+---
+title: "Data Import"
+author: "Yifan Su"
+date: "today"
+output: github_document
+---
+
+```{r setup}
+library(tidyverse)
+library(readxl)
+library(haven)
+library(readr)
+```
+
+## Building blocks
+
+#### Have the output html style like this 
+title: "Simple document"
+author: Yifan Su
+date: September 2020
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+
+```{r}
+# make a tibble
+example_df=tibble( # you can make a tibble by tibble.
+  vec_numeric=1:4,
+  vec_char=c("My","name","is","Yifan"),
+  vec_factor=factor(c("male","male","female","male"))
+)
+
+# make a tibble having 1000 rows and 3 cols
+plot_df=tibble(
+  x=rnorm(1000,sd=.5),#norm distribution rather than unif distribution
+  y=1+2*x+rnorm(1000),#it's important to have","
+  y_quad=1+2*x-3*x^2+rnorm(1000)
+)
+
+# save it by ggsave
+ggsave("scatter_plot.pdf",height=4,width=4)
+```
+
+
+
+
+
+

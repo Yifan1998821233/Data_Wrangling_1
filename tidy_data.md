@@ -5,14 +5,14 @@ Tidy Data
 library(tidyverse)
 ```
 
-    ## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+    ## -- Attaching packages --------------------------------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --
 
     ## v ggplot2 3.3.2     v purrr   0.3.4
     ## v tibble  3.0.3     v dplyr   1.0.2
     ## v tidyr   1.1.2     v stringr 1.4.0
     ## v readr   1.3.1     v forcats 0.5.0
 
-    ## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+    ## -- Conflicts ------------------------------------------------------------------------------------------------------------------------------ tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -27,7 +27,7 @@ Load the PULSE data.
 
 ``` r
 pulse_data = 
-  haven::read_sas("./public_pulse_data.sas7bdat") %>% 
+  haven::read_sas("./data/public_pulse_data.sas7bdat") %>% 
   janitor::clean_names()
 ```
 
@@ -39,7 +39,7 @@ pulse_data_tidy =
   pivot_longer(
    bdi_score_bl:bdi_score_12m,
    names_to = "visit",
-   names_prefix = "bdi_score_",
+   names_prefix = "bdi_score_", # set a prefix of name
    values_to = "bdi"
   )
 ```
@@ -48,7 +48,7 @@ rewrite, combine and extend (to add a mutate)
 
 ``` r
 pulse_data = 
-  haven::read_sas("./public_pulse_data.sas7bdat") %>% 
+  haven::read_sas("./data/public_pulse_data.sas7bdat") %>% 
   janitor::clean_names() %>% 
   pivot_longer(
    bdi_score_bl:bdi_score_12m,
@@ -93,15 +93,15 @@ First step: import the table.
 
 ``` r
  fellowship_ring = 
-  readxl::read_excel("./LotR_Words.xlsx", range = "B3:D6") %>% 
+  readxl::read_excel("./data/LotR_Words.xlsx", range = "B3:D6") %>% 
   mutate(movie = "fellowship_ring") #add a new column fellowship_ring
 
 two_towers = 
-  readxl::read_excel("./LotR_Words.xlsx", range = "F3:H6") %>% 
+  readxl::read_excel("./data/LotR_Words.xlsx", range = "F3:H6") %>% 
   mutate(movie = "two_towers")
 
 return_king = 
-  readxl::read_excel("./LotR_Words.xlsx", range = "J3:L6") %>% 
+  readxl::read_excel("./data/LotR_Words.xlsx", range = "J3:L6") %>% 
   mutate(movie = "return_king")
 ```
 
@@ -109,7 +109,7 @@ Bind all the rows together
 
 ``` r
 loty_tidy = 
-  bind_rows(fellowship_ring, two_towers, return_king) %>% 
+  bind_rows(fellowship_ring, two_towers, return_king) %>% # 3 df with consistent cols
   janitor::clean_names() %>% 
   relocate(movie) %>% 
   pivot_longer(
@@ -125,7 +125,7 @@ Import and clean the FAS datasets.
 
 ``` r
 pups_df =
-  read_csv("./FAS_pups.csv") %>% 
+  read_csv("./data/FAS_pups.csv") %>% 
   janitor::clean_names() %>% 
   mutate(sex = recode(sex, `1` = "male", `2` = "female"))
 ```
@@ -142,10 +142,10 @@ pups_df =
 
 ``` r
 litters_df =
-  read_csv("./FAS_litters.csv") %>% 
+  read_csv("./data/FAS_litters.csv") %>% 
   janitor::clean_names() %>% 
   relocate(litter_number) %>% 
-  separate(group, into = c("dose", "day_of_tx"), sep = 3)
+  separate(group, into = c("dose", "day_of_tx"), sep = 3) # seperate group variables by 3 words
 ```
 
     ## Parsed with column specification:
